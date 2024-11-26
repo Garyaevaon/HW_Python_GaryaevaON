@@ -1,0 +1,59 @@
+Баг № 1
+Заголовок: Функция не обрабатывает случай None корректно
+Автор: Ольга Г.
+Метки: Функционал
+Серьезность: S2 Критично (Critical)
+Приоритет: Средний (Medium)
+Шаги воспроизведения:
+
+@pytest.mark.parametrize(
+    'string, delimeter, result',
+    [
+        (None, "", []) #негативная
+    ],
+)
+def test_to_list_positive_and_negative(string, delimeter, result):
+        res = processor.to_list(string, delimeter)
+        assert res == result
+
+Ожидаемый результат:
+ негативная проверка:    функция отрабатывает без ошибки
+
+Фактический результат:
+ негативная проверка:  функция выдает ошибку: AttributeError: 'NoneType' object has no attribute 'startswith'
+
+
+
+Баг № 2
+Заголовок: Метод некоректно обрабатывает входные данные, приводя к ошибкам.
+Автор: Ольга Г.
+Метки: Функционал
+Серьезность: S1 Блокирующая (Blockad)
+Приоритет: Высокий (Highest)
+Шаги воспроизведения:
+
+@pytest.mark.parametrize(
+    'lst, joiner, result',
+    [
+        ([1,2,3,4], "", "1, 2, 3, 4"), #позитивная
+        (['Sky','Pro'], "", "Sky, Pro") #позитивная
+    ],
+)
+def test_list_to_string_positive_and_negative(lst, joiner, result):
+    res = processor.list_to_string(lst, joiner)
+    assert res == result
+
+Ожидаемый результат:
+ 1 позитивная проверка:       "1, 2, 3, 4"
+ 2 позитивная проверка:       "Sky, Pro"
+
+Фактический результат:
+ 1 позитивная проверка:       E       AssertionError: assert '1234' == '1, 2, 3, 4'
+                              E         - 1, 2, 3, 4
+                              E         + 1234
+
+ 2 позитивная проверка:       E       AssertionError: assert 'SkyPro' == 'Sky, Pro'
+                              E         - Sky, Pro
+                              E         ?    --
+
+                              E         + SkyPro
