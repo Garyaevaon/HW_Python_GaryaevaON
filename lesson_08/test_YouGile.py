@@ -2,7 +2,7 @@ from pages.PageObgect import PageObgect
 import requests
 api = PageObgect(
     "https://yougile.com/api-v2",
-    "Bearer P8niqWZqPE2O0WuS35kPA-VdOQw28k9c6+NplD0RcyYRX-8IpU5NMw4b4OV5Tt9S"
+    ""
     )
 
 
@@ -34,8 +34,8 @@ def test_negative_get_projects_list():
         ] = ""
     result = requests.get(
         "https://yougile.com/api-v2"+'/projects',
-            headers=my_haders
-            )
+        headers=my_haders
+        )
     assert result.status_code == 401
 
 
@@ -65,7 +65,7 @@ def test_negative_get_progect_id():
     my_haders = {}
     my_haders[
         "Authorization"
-        ] = "Bearer P8niqWZqPE2O0WuS35kPA-VdOQw28k9c6+NplD0RcyYRX-8IpU5NMw4b4OV5Tt9S"
+        ] = ""
     id_company = "5641351313513535531351"
     result = requests.get(
         "https://yougile.com/api-v2"+'/projects/'+id_company,
